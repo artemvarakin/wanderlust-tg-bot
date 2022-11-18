@@ -1,0 +1,11 @@
+global using Xunit;
+global using Moq;
+global using RichardSzalay.MockHttp;
+global using FluentAssertions;
+global using System.Net;
+global using System.Net.Http.Json;
+global using Microsoft.Extensions.Logging;
+global using RichardSzalay.MockHttp;
+global using WanderlustTgBot.Abstractions;
+global using WanderlustTgBot.Clients;
+global using WanderlustTgBot.Data.Models;
