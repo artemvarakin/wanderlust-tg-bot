@@ -2,33 +2,20 @@ namespace WanderlustTgBot.Tests;
 
 public class AutocompleteApiClientTests
 {
-    private readonly AutocompleteApiClient _sut;
-    private readonly Mock<IHttpClientFactory> _httpClientFactoryMock = new();
     private readonly MockHttpMessageHandler _handlerMock = new();
-    private const string _autocompleteApiUrl = "https://autocomplete.travelpayouts.com";
-    private const string _matchUrl = $"{_autocompleteApiUrl}/*";
-
-    public AutocompleteApiClientTests()
-    {
-        _sut = new AutocompleteApiClient(_httpClientFactoryMock.Object);
-    }
 
     [Fact]
-    public async Task GetCityCodeAsync_ShouldReturnDeparturePoint_WhenValidValuePassed()
+    public async Task GetCityCodeAsync_ShouldReturnDeparturePoint()
     {
         // Arrange
-        _handlerMock
-            .When(_matchUrl)
-            .Respond(HttpStatusCode.OK,
-                JsonContent.Create(new object[] { new {
-                    code = "LAX",
-                    name = "Los Angeles",
-                    country_code = "US",
-                    country_name = "United States"
-                }})
-            );
+        var httpContent = JsonContent.Create(new object[] { new {
+            code = "LAX",
+            name = "Los Angeles",
+            country_code = "US",
+            country_name = "United States"
+        }});
 
-        SetupHttpClientFactoryMock(_handlerMock);
+        var httpClientMock = CreateHttpClientMock(HttpStatusCode.OK, httpContent);
 
         var expected = new DeparturePoint
         {
@@ -38,8 +25,10 @@ public class AutocompleteApiClientTests
             CountryName = "United States"
         };
 
+        var sut = new AutocompleteApiClient(httpClientMock);
+
         // Act
-        var result = await _sut.GetLocaleByCityAsync("Los Angeles");
+        var result = await sut.GetLocaleByCityAsync("Los Angeles");
 
         // Assert
         result
@@ -51,14 +40,11 @@ public class AutocompleteApiClientTests
     public async Task GetCityCodeAsync_ShouldReturnNull_WhenEmptyValueIsPassed()
     {
         // Arrange
-        _handlerMock
-            .When(_matchUrl)
-            .Respond(HttpStatusCode.NotFound);
-
-        SetupHttpClientFactoryMock(_handlerMock);
+        var httpClientMock = CreateHttpClientMock(HttpStatusCode.NotFound);
+        var sut = new AutocompleteApiClient(httpClientMock);
 
         // Act
-        var result = await _sut.GetLocaleByCityAsync(string.Empty);
+        var result = await sut.GetLocaleByCityAsync(string.Empty);
 
         // Assert
         result.Should().BeNull();
@@ -68,14 +54,11 @@ public class AutocompleteApiClientTests
     public async Task GetCityCodeAsync_ShouldReturnNull_WhenBadCharactersIsPassed()
     {
         // Arrange
-        _handlerMock
-            .When(_matchUrl)
-            .Respond(HttpStatusCode.BadRequest);
-
-        SetupHttpClientFactoryMock(_handlerMock);
+        var httpClientMock = CreateHttpClientMock(HttpStatusCode.BadRequest);
+        var sut = new AutocompleteApiClient(httpClientMock);
 
         // Act
-        var result = await _sut.GetLocaleByCityAsync("?");
+        var result = await sut.GetLocaleByCityAsync("?");
 
         // Assert
         result.Should().BeNull();
@@ -85,17 +68,13 @@ public class AutocompleteApiClientTests
     public async Task GetCityCodeAsync_ShouldReturnNull_WhenDataNotFound()
     {
         // Arrange
-        _handlerMock
-            .When(_matchUrl)
-            .Respond(
-                HttpStatusCode.OK,
-                JsonContent.Create(Array.Empty<object>())
-            );
-
-        SetupHttpClientFactoryMock(_handlerMock);
+        var httpClientMock = CreateHttpClientMock(
+            HttpStatusCode.OK,
+            JsonContent.Create(Array.Empty<object>()));
+        var sut = new AutocompleteApiClient(httpClientMock);
 
         // Act
-        var result = await _sut.GetLocaleByCityAsync("test");
+        var result = await sut.GetLocaleByCityAsync("test");
 
         // Assert
         result.Should().BeNull();
@@ -105,25 +84,27 @@ public class AutocompleteApiClientTests
     public async Task GetCityCodeAsync_ShouldThrowException_WhenAutocompleteApiIsUnavailable()
     {
         // Arrange
-        _handlerMock
-            .When(_matchUrl)
-            .Respond(HttpStatusCode.InternalServerError);
-
-        SetupHttpClientFactoryMock(_handlerMock);
+        var httpClientMock = CreateHttpClientMock(HttpStatusCode.InternalServerError);
+        var sut = new AutocompleteApiClient(httpClientMock);
 
         // Act
-        var act = () => _sut.GetLocaleByCityAsync("test");
+        var act = () => sut.GetLocaleByCityAsync("test");
 
         // Assert
         await act.Should().ThrowAsync<HttpRequestException>();
     }
 
-    private void SetupHttpClientFactoryMock(MockHttpMessageHandler handlerMock)
+    private HttpClient CreateHttpClientMock(
+        HttpStatusCode httpStatusCode,
+        HttpContent? httpContent = null)
     {
-        _httpClientFactoryMock.Setup(x => x.CreateClient(nameof(IAutocompleteApiClient)))
-            .Returns(new HttpClient(handlerMock)
-            {
-                BaseAddress = new Uri(_autocompleteApiUrl)
-            });
+        _handlerMock
+            .When("https://autocomplete.travelpayouts.com/*")
+            .Respond(httpStatusCode, httpContent);
+
+        var httpClient = _handlerMock.ToHttpClient();
+        httpClient.BaseAddress = new Uri("https://autocomplete.travelpayouts.com");
+
+        return httpClient;
     }
 }
