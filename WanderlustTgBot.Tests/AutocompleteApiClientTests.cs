@@ -5,35 +5,23 @@ public class AutocompleteApiClientTests
     private readonly MockHttpMessageHandler _handlerMock = new();
 
     [Fact]
-    public async Task GetCityCodeAsync_ShouldReturnDeparturePoint()
+    public async Task GetCityCodeAsync_ShouldReturnDepartureCode()
     {
         // Arrange
-        var httpContent = JsonContent.Create(new object[] { new {
-            code = "LAX",
-            name = "Los Angeles",
-            country_code = "US",
-            country_name = "United States"
-        }});
+        const string code = "LAX";
+        var httpContent = JsonContent.Create(new object[] { new { code } });
 
         var httpClientMock = CreateHttpClientMock(HttpStatusCode.OK, httpContent);
-
-        var expected = new DeparturePoint
-        {
-            Code = "LAX",
-            Name = "Los Angeles",
-            CountryCode = "US",
-            CountryName = "United States"
-        };
 
         var sut = new AutocompleteApiClient(httpClientMock);
 
         // Act
-        var result = await sut.GetLocaleByCityAsync("Los Angeles");
+        var result = await sut.GetDepartureCodeByNameAsync("Los Angeles");
 
         // Assert
         result
             .Should().NotBeNull()
-            .And.BeEquivalentTo(expected);
+            .And.BeEquivalentTo(code);
     }
 
     [Fact]
@@ -44,7 +32,7 @@ public class AutocompleteApiClientTests
         var sut = new AutocompleteApiClient(httpClientMock);
 
         // Act
-        var result = await sut.GetLocaleByCityAsync(string.Empty);
+        var result = await sut.GetDepartureCodeByNameAsync(string.Empty);
 
         // Assert
         result.Should().BeNull();
@@ -58,7 +46,7 @@ public class AutocompleteApiClientTests
         var sut = new AutocompleteApiClient(httpClientMock);
 
         // Act
-        var result = await sut.GetLocaleByCityAsync("?");
+        var result = await sut.GetDepartureCodeByNameAsync("?");
 
         // Assert
         result.Should().BeNull();
@@ -74,7 +62,7 @@ public class AutocompleteApiClientTests
         var sut = new AutocompleteApiClient(httpClientMock);
 
         // Act
-        var result = await sut.GetLocaleByCityAsync("test");
+        var result = await sut.GetDepartureCodeByNameAsync("test");
 
         // Assert
         result.Should().BeNull();
@@ -88,7 +76,7 @@ public class AutocompleteApiClientTests
         var sut = new AutocompleteApiClient(httpClientMock);
 
         // Act
-        var act = () => sut.GetLocaleByCityAsync("test");
+        var act = () => sut.GetDepartureCodeByNameAsync("test");
 
         // Assert
         await act.Should().ThrowAsync<HttpRequestException>();

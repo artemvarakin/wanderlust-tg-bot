@@ -1,22 +1,17 @@
-using WanderlustTgBot.Data.Models;
-
 namespace WanderlustTgBot.Abstractions;
 
 public interface IAutocompleteApiClient
 {
     /// <summary>
-    /// Gets <see cref="DeparturePoint"/> for provided city name.
+    /// Gets IATA code for provided city name.
     /// If a country name is provided,
-    /// returns <see cref="DeparturePoint"/> of its capital.
+    /// returns IATA code of its capital.
     /// </summary>
-    /// <param name="city">City name.</param>
+    /// <param name="cityName">City name.</param>
     /// <returns>
-    /// <see cref="DeparturePoint"/> or null
-    /// if invalid value provided
-    /// or city could not be found.
+    /// <see cref="string"/> representation of IATA code
+    /// or null if invalid value provided
+    /// or city not found.
     /// </returns>
-    /// <exception cref="HttpRequestException">
-    /// Thrown when Autocomplete API is unavailable.
-    /// </exception>
-    Task<DeparturePoint?> GetLocaleByCityAsync(string city);
+    Task<string?> GetDepartureCodeByNameAsync(string cityName);
 }

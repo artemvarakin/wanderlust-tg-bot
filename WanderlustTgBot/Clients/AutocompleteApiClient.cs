@@ -1,33 +1,36 @@
 using System.Net;
+using System.Text.Json.Nodes;
 using WanderlustTgBot.Abstractions;
-using WanderlustTgBot.Data.Models;
 
 namespace WanderlustTgBot.Clients;
 
 public class AutocompleteApiClient : IAutocompleteApiClient
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly HttpClient _httpClient;
 
-    public AutocompleteApiClient(IHttpClientFactory clientFactory)
+    public AutocompleteApiClient(HttpClient httpClient)
     {
-        _httpClientFactory = clientFactory;
+        _httpClient = httpClient;
     }
 
-    ///<inheritdoc/>
-    public async Task<DeparturePoint?> GetLocaleByCityAsync(string city)
+    /// <inheritdoc/>
+    public async Task<string?> GetDepartureCodeByNameAsync(string cityName)
     {
         try
         {
-            var client = _httpClientFactory.CreateClient(nameof(IAutocompleteApiClient));
-            var result = await client.GetFromJsonAsync<IEnumerable<DeparturePoint>>(
-                $"/places2?locale=en&term={city}");
+            var response = await _httpClient.GetStreamAsync(
+                $"/places2?locale=en&term={cityName}");
 
-            if (result is null || !result.Any())
+            var node = JsonNode.Parse(response);
+
+            try
+            {
+                return node![0]!["code"]!.GetValue<string>();
+            }
+            catch
             {
                 return null;
             }
-
-            return result.FirstOrDefault();
         }
         catch (HttpRequestException e)
         {

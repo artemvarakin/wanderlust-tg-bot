@@ -10,10 +10,10 @@ public interface IAviasalesApiClient
     /// this method have to call it twice (for current and next month)
     /// and then aggregate the result.
     /// </summary>
-    /// <param name="cityCode">Departure city code.</param>
+    /// <param name="departureCode">Departure city code.</param>
     /// <param name="destinationCode">Departure city or country code.</param>
     /// <returns>
     /// <see cref="IEnumerable"/> of type <see cref="Flight"/>
     /// </returns>
-    Task<IEnumerable<Flight>> GetFlightsForMonthAsync(string cityCode, string destinationCode);
+    Task<IEnumerable<Flight>> GetFlightsForMonthAsync(string departureCode, string destinationCode);
 }
