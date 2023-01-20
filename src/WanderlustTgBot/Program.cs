@@ -1,19 +1,21 @@
-﻿using System.Globalization;
+using System.Globalization;
 using Microsoft.Extensions.Options;
-using WanderlustTgBot.Application.Extensions;
+using WanderlustTgBot.Extensions;
 using WanderlustTgBot.Infrastructure.Configurations;
 using WanderlustTgBot.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-    builder.Services.AddHostedService<WebhookService>();
-
     builder.Services
         .ConfigureOptions(builder.Configuration)
         .ConfigureLogging(builder.Configuration)
         .ConfigureHttpClients(builder.Configuration)
-        .AddRedisCache(builder.Configuration)
-        .AddServices();
+        .AddRedisCache(builder.Configuration);
+
+    builder.Services
+        .AddHostedService<WebhookService>()
+        .AddPresentationServices()
+        .AddInfrastructureServices();
 
     builder.Services
         .AddControllers()
@@ -37,6 +39,7 @@ var app = builder.Build();
         });
 }
 
+// localization setup
 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("ru-RU");
 
 app.Run();

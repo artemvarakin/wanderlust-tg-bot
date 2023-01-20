@@ -2,11 +2,13 @@ using Microsoft.Extensions.Options;
 using Serilog;
 using StackExchange.Redis;
 using Telegram.Bot;
-using WanderlustTgBot.Core.Abstractions;
+using WanderlustTgBot.Abstractions;
+using WanderlustTgBot.Infrastructure.Abstractions;
 using WanderlustTgBot.Infrastructure.Clients;
 using WanderlustTgBot.Infrastructure.Configurations;
+using WanderlustTgBot.Services;
 
-namespace WanderlustTgBot.Application.Extensions;
+namespace WanderlustTgBot.Extensions;
 
 internal static class IServiceCollectionExtensions
 {
@@ -53,7 +55,7 @@ internal static class IServiceCollectionExtensions
             .GetValue<string>("Token");
 
         services.AddHttpClient(nameof(ITelegramBotClient))
-            .AddTypedClient<ITelegramBotClient>(HttpClient => new TelegramBotClient(token!, HttpClient));
+            .AddTypedClient<ITelegramBotClient>(client => new TelegramBotClient(token!, client));
 
         // Autocomplete API
         // Allows to fetch general info on specified city
@@ -87,8 +89,42 @@ internal static class IServiceCollectionExtensions
                 configuration.GetConnectionString("Redis")!));
     }
 
-    public static IServiceCollection AddServices(this IServiceCollection services)
+    public static IServiceCollection AddPresentationServices(
+        this IServiceCollection services)
+    {
+        return services
+            .AddScoped<IUpdateHandler, UpdateHandler>()
+            .AddScoped<IUpdateProcessor, UpdateProcessor>();
+    }
+
+    public static IServiceCollection AddInfrastructureServices(
+        this IServiceCollection services)
     {
         return services;
     }
+
+    public static IServiceCollection AddApplicationServices(
+        this IServiceCollection services)
+    {
+        return services;
+    }
+
+    public static IServiceCollection AddPersistenceServices(
+        this IServiceCollection services)
+    {
+        return services;
+    }
+    // public static IServiceCollection AddServices(this IServiceCollection services)
+    // {
+    //     return services
+    //         .AddSingleton<IDirectionsRepository, DirectionsRepository>()
+    //         .AddScoped<IReplyService, ReplyService>()
+    //         .AddScoped<IReplyComposer, ReplyComposer>()
+    //         .AddScoped<IDateTimeProvider, DateTimeProvider>()
+    //         .AddScoped<IScheduleCacheService, ScheduleCacheService>()
+    //         .AddScoped<ICallbackDataService, CallbackDataService>()
+    //         .AddScoped<IFlightsProvider, FlightsProvider>()
+    //         .AddScoped<IFlightsProcessor, FlightsProcessor>()
+    //         .AddScoped<IAviasalesRequestFactory, AviasalesRequestFactory>();
+    // }
 }
