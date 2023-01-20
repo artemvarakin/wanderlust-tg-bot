@@ -1,6 +1,6 @@
 using System.Net;
 using System.Text.Json.Nodes;
-using WanderlustTgBot.Core.Abstractions;
+using WanderlustTgBot.Infrastructure.Abstractions;
 
 namespace WanderlustTgBot.Infrastructure.Clients;
 

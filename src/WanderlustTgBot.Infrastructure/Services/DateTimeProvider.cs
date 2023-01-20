@@ -1,4 +1,4 @@
-using WanderlustTgBot.Core.Abstractions;
+using WanderlustTgBot.Infrastructure.Abstractions;
 
 namespace WanderlustTgBot.Infrastructure.Services;
 
