@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WanderlustTgBot", "WanderlustTgBot\WanderlustTgBot.csproj", "{5314AE22-935A-4A25-963E-592D99775DF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WanderlustTgBot.Core", "WanderlustTgBot.Core\WanderlustTgBot.Core.csproj", "{5E98D321-A52C-46BB-A5E9-F1BDD3599A23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WanderlustTgBot.Web", "WanderlustTgBot.Web\WanderlustTgBot.Web.csproj", "{D8A42E93-0D83-4AEF-AD43-6CDAB5ACC615}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WanderlustTgBot.Application", "WanderlustTgBot.Application\WanderlustTgBot.Application.csproj", "{4375EDAB-89B5-4C1B-8174-C08DC45531F1}"
 EndProject
@@ -18,10 +20,14 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5314AE22-935A-4A25-963E-592D99775DF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5314AE22-935A-4A25-963E-592D99775DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5314AE22-935A-4A25-963E-592D99775DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5314AE22-935A-4A25-963E-592D99775DF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E98D321-A52C-46BB-A5E9-F1BDD3599A23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E98D321-A52C-46BB-A5E9-F1BDD3599A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E98D321-A52C-46BB-A5E9-F1BDD3599A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E98D321-A52C-46BB-A5E9-F1BDD3599A23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8A42E93-0D83-4AEF-AD43-6CDAB5ACC615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8A42E93-0D83-4AEF-AD43-6CDAB5ACC615}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8A42E93-0D83-4AEF-AD43-6CDAB5ACC615}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8A42E93-0D83-4AEF-AD43-6CDAB5ACC615}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4375EDAB-89B5-4C1B-8174-C08DC45531F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4375EDAB-89B5-4C1B-8174-C08DC45531F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4375EDAB-89B5-4C1B-8174-C08DC45531F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
