@@ -1,4 +1,4 @@
-namespace WanderlustTgBot.Infrastructure.Abstractions;
+namespace WanderlustTgBot.Core.Abstractions;
 
 public interface IAviasalesApiClient
 {

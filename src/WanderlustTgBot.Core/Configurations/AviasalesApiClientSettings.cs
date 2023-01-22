@@ -1,4 +1,4 @@
-namespace WanderlustTgBot.Infrastructure.Configurations;
+namespace WanderlustTgBot.Core.Configurations;
 
 public class AviasalesApiClientSettings
 {

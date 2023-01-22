@@ -1,6 +1,6 @@
 using System.Net.Http.Json;
 using Microsoft.Extensions.Logging;
-using WanderlustTgBot.Infrastructure.Abstractions;
+using WanderlustTgBot.Core.Abstractions;
 
 namespace WanderlustTgBot.Infrastructure.Clients;
 
