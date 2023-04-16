@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Telegram.Bot.Types;
 using Wanderlust.Web.Interfaces;
 
-namespace Wanderlust.TravelpayoutsClients.Interfaces.Web.Controllers;
+namespace Wanderlust.Web.Controllers;
 
 public class WebhookController : ControllerBase
 {

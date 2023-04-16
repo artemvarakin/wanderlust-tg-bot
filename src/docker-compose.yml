@@ -1,0 +1,45 @@
+version: "3.8"
+services:
+  locations-db:
+    image: mongo
+    container_name: locations-db
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=XXXX
+      - MONGO_INITDB_ROOT_PASSWORD=XXXX
+    ports:
+      - 8081:8081
+    volumes:
+      - ../volumes/mongo:/data/db
+
+  departure-boards-cache:
+    image: redis:alpine
+    container_name: departure-boards-cache
+    restart: always
+    environment:
+      - REDIS_PASSWORD=XXXX
+    ports:
+      - 6379:6379
+    volumes:
+      - ../volumes/redis:/data
+
+  locations-db-init:
+    build:
+      context: .
+      dockerfile: ./Workers/Wanderlust.LocationsDbInitializer/Dockerfile
+    container_name: locations-db-init
+    depends_on:
+      - locations-db
+
+  wanderlust-tg-bot:
+    build:
+      context: .
+      dockerfile: ./Wanderlust.Web/Dockerfile
+    container_name: wanderlust-tg-bot
+    ports:
+      - 44383:44383
+    depends_on:
+      locations-db-init:
+        condition: service_completed_successfully
+      departure-boards-cache:
+        condition: service_started
