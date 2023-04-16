@@ -12,6 +12,10 @@ RUN dotnet publish -c release -o /out
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine as runtime
 
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
+RUN apk add --no-cache icu-libs
+
 WORKDIR /app
 
 COPY --from=build /out .
