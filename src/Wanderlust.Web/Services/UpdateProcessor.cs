@@ -29,6 +29,11 @@ public class UpdateProcessor : IUpdateProcessor
 
     public async Task ProcessTextMessageAsync(Message message)
     {
+        if (string.Equals(message.Text, "/start", StringComparison.OrdinalIgnoreCase))
+        {
+            await _replyService.SendUsageMessageAsync(message);
+        }
+
         var query = new GetDepartureCityInfoQuery(message.Text!);
         var result = await _mediator.Send(query);
 
