@@ -10,11 +10,9 @@ COPY ./Wanderlust.Web ./Wanderlust.Web/
 WORKDIR /src/Wanderlust.Web
 RUN dotnet publish -c release -o /out
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine as runtime
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 as runtime
 
-ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
-
-RUN apk add --no-cache icu-libs
+EXPOSE 80
 
 WORKDIR /app
 

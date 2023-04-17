@@ -37,7 +37,7 @@ services:
       dockerfile: ./Wanderlust.Web/Dockerfile
     container_name: wanderlust-tg-bot
     ports:
-      - 44383:44383
+      - 44383:80
     depends_on:
       locations-db-init:
         condition: service_completed_successfully
