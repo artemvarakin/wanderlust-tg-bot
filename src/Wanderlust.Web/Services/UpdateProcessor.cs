@@ -32,6 +32,8 @@ public class UpdateProcessor : IUpdateProcessor
         if (string.Equals(message.Text, "/start", StringComparison.OrdinalIgnoreCase))
         {
             await _replyService.SendUsageMessageAsync(message);
+
+            return;
         }
 
         var query = new GetDepartureCityInfoQuery(message.Text!);
