@@ -1,0 +1,14 @@
+global using Xunit;
+global using Moq;
+global using AutoFixture;
+global using FluentAssertions;
+global using MapsterMapper;
+global using Microsoft.Extensions.Logging;
+global using Wanderlust.Tests.Core;
+global using Wanderlust.Core.Domain;
+global using Wanderlust.Application.Common.Interfaces;
+global using Wanderlust.Application.Common.Services;
+global using Wanderlust.Application.Departure.Dtos;
+global using Wanderlust.Application.Flights.Dtos;
+global using Wanderlust.Application.Departure.Features.GetDepartureCityInfo;
+global using Wanderlust.Application.Flights.Features.FindVisaFreeZoneFlights.Queries;

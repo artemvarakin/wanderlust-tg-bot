@@ -1,0 +1,60 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wanderlust.Web", "Wanderlust.Web\Wanderlust.Web.csproj", "{D8A42E93-0D83-4AEF-AD43-6CDAB5ACC615}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wanderlust.Application", "Wanderlust.Application\Wanderlust.Application.csproj", "{4375EDAB-89B5-4C1B-8174-C08DC45531F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wanderlust.Infrastructure", "Wanderlust.Infrastructure\Wanderlust.Infrastructure.csproj", "{32EA82A8-1FC6-471C-9A88-288F7FFF1F36}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{4295C27F-5F9A-40D5-8A58-CAABC5FE1404}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wanderlust.Core", "Libraries\Wanderlust.Core\Wanderlust.Core.csproj", "{34679591-CA94-4F2B-BC75-27D18934052D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workers", "Workers", "{95E8C626-BF3D-40E3-AD63-545A027AED5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wanderlust.LocationsDbInitializer", "Workers\Wanderlust.LocationsDbInitializer\Wanderlust.LocationsDbInitializer.csproj", "{E7CD2590-F946-4116-9643-BCBC5822BA24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wanderlust.TravelpayoutsClients", "Libraries\Wanderlust.TravelpayoutsClients\Wanderlust.TravelpayoutsClients.csproj", "{FDC571F2-BAC4-4E7E-8FF3-48C8188BED8D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D8A42E93-0D83-4AEF-AD43-6CDAB5ACC615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8A42E93-0D83-4AEF-AD43-6CDAB5ACC615}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8A42E93-0D83-4AEF-AD43-6CDAB5ACC615}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8A42E93-0D83-4AEF-AD43-6CDAB5ACC615}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4375EDAB-89B5-4C1B-8174-C08DC45531F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4375EDAB-89B5-4C1B-8174-C08DC45531F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4375EDAB-89B5-4C1B-8174-C08DC45531F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4375EDAB-89B5-4C1B-8174-C08DC45531F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32EA82A8-1FC6-471C-9A88-288F7FFF1F36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32EA82A8-1FC6-471C-9A88-288F7FFF1F36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32EA82A8-1FC6-471C-9A88-288F7FFF1F36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32EA82A8-1FC6-471C-9A88-288F7FFF1F36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7CD2590-F946-4116-9643-BCBC5822BA24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7CD2590-F946-4116-9643-BCBC5822BA24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7CD2590-F946-4116-9643-BCBC5822BA24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7CD2590-F946-4116-9643-BCBC5822BA24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34679591-CA94-4F2B-BC75-27D18934052D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34679591-CA94-4F2B-BC75-27D18934052D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34679591-CA94-4F2B-BC75-27D18934052D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34679591-CA94-4F2B-BC75-27D18934052D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDC571F2-BAC4-4E7E-8FF3-48C8188BED8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDC571F2-BAC4-4E7E-8FF3-48C8188BED8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDC571F2-BAC4-4E7E-8FF3-48C8188BED8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDC571F2-BAC4-4E7E-8FF3-48C8188BED8D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E7CD2590-F946-4116-9643-BCBC5822BA24} = {95E8C626-BF3D-40E3-AD63-545A027AED5A}
+		{34679591-CA94-4F2B-BC75-27D18934052D} = {4295C27F-5F9A-40D5-8A58-CAABC5FE1404}
+		{FDC571F2-BAC4-4E7E-8FF3-48C8188BED8D} = {4295C27F-5F9A-40D5-8A58-CAABC5FE1404}
+	EndGlobalSection
+EndGlobal
