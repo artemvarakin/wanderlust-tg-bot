@@ -51,6 +51,8 @@ public class UpdateProcessor : IUpdateProcessor
             return;
         }
 
+        _logger.LogInformation("Requested flights search from '{CityName}'.", result.Name);
+
         await _replyService.SendSelectRegionMenuAsync(message, result.Code);
     }
 
