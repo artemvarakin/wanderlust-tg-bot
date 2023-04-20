@@ -9,7 +9,6 @@ namespace Wanderlust.Web.Services;
 
 public class UpdateProcessor : IUpdateProcessor
 {
-    // private static bool hit;
     private readonly IMediator _mediator;
     private readonly ILogger<UpdateProcessor> _logger;
     private readonly ICallbackQueryDataService _callbackQueryDataService;
@@ -51,15 +50,13 @@ public class UpdateProcessor : IUpdateProcessor
             return;
         }
 
+        _logger.LogInformation("Requested flights search from '{CityName}'.", result.Name);
+
         await _replyService.SendSelectRegionMenuAsync(message, result.Code);
     }
 
     public async Task ProcessCallbackQueryAsync(CallbackQuery callbackQuery)
     {
-        // // todo: don't forget to get rid of the hack
-        // if (hit) return;
-        // hit = true;
-
         if (callbackQuery.Message is null)
         {
             _logger.LogError(

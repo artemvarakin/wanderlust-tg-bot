@@ -10,7 +10,9 @@ COPY ./Wanderlust.Web ./Wanderlust.Web/
 WORKDIR /src/Wanderlust.Web
 RUN dotnet publish -c release -o /out
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine as runtime
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 as runtime
+
+EXPOSE 80
 
 WORKDIR /app
 

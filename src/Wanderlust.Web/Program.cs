@@ -8,8 +8,8 @@ using Wanderlust.Web.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services
-        .ConfigureLogging(builder.Configuration)
         .ConfigureOptions(builder.Configuration)
+        .ConfigureLogging(builder.Configuration, builder.Environment.EnvironmentName)
         .ConfigureTelegramBotHttpClient(builder.Configuration);
 
     builder.Services

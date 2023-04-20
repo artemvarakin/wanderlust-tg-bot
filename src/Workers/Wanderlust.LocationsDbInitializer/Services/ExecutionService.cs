@@ -40,6 +40,8 @@ public class ExecutionService : IExecutionService
         catch (Exception e)
         {
             _logger.LogCritical(e, "Locations DB initializer run failed.");
+
+            throw;
         }
     }
 }

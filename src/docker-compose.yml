@@ -5,8 +5,8 @@ services:
     container_name: locations-db
     restart: always
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=XXXX
-      - MONGO_INITDB_ROOT_PASSWORD=XXXX
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
     ports:
       - 8081:8081
     volumes:
@@ -17,11 +17,38 @@ services:
     container_name: departure-boards-cache
     restart: always
     environment:
-      - REDIS_PASSWORD=XXXX
+      - REDIS_PASSWORD=$REDIS_PASSWORD
     ports:
       - 6379:6379
     volumes:
       - ../volumes/redis:/data
+
+  es01:
+    image: elasticsearch:$ELASTIC_VERSION
+    container_name: es01
+    restart: always
+    environment:
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.type=single-node
+      - xpack.security.enabled=true
+      - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+    ports:
+      - 127.0.0.1:9200:9200
+    volumes:
+      - ../volumes/es01:/usr/share/elasticsearch/data
+  kib01:
+    image: kibana:$ELASTIC_VERSION
+    container_name: kib01
+    restart: always
+    environment:
+      - ELASTICSEARCH_HOSTS=http://es01:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=$ELASTIC_PASSWORD
+    ports:
+      - 127.0.0.1:5601:5601
+    depends_on:
+      - es01
 
   locations-db-init:
     build:
@@ -36,8 +63,9 @@ services:
       context: .
       dockerfile: ./Wanderlust.Web/Dockerfile
     container_name: wanderlust-tg-bot
+    restart: always
     ports:
-      - 44383:44383
+      - 44383:80
     depends_on:
       locations-db-init:
         condition: service_completed_successfully
