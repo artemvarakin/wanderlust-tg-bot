@@ -13,7 +13,6 @@ public static class LoggerMoqExtensions
                 It.IsAny<EventId>(),
                 It.IsAny<object>(),
                 It.IsAny<Exception>(),
-                // todo: clarification
                 It.Is<Func<object, Exception, string>>((v, t) => true))
         );
     }
@@ -25,7 +24,6 @@ public static class LoggerMoqExtensions
                 It.IsAny<EventId>(),
                 It.IsAny<object>(),
                 It.IsAny<Exception>(),
-                // todo: clarification
                 It.Is<Func<object, Exception, string>>((v, t) => true)),
             times);
     }
