@@ -33,6 +33,8 @@ services:
       - discovery.type=single-node
       - xpack.security.enabled=true
       - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - ingest.geoip.downloader.enabled=false
     ports:
       - 127.0.0.1:9200:9200
     volumes:
